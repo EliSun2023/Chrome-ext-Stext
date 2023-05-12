@@ -1,6 +1,8 @@
-chrome.runtime.onMessage.addListener((message) => {
-    const selectedText = message.selection;
-    console.log('Message received:', selectedText);
-    document.getElementById('selected-text').textContent = selectedText;
-  });
-  
+chrome.tabs.executeScript(
+  {
+    code: "window.getSelection().toString();"
+  },
+  function(selection) {
+    document.getElementById("selected-text").innerHTML = selection[0];
+  }
+);
