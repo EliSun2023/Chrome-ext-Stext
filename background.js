@@ -1,16 +1,11 @@
-chrome.action.onClicked.addListener((tab) => {
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: () => {
-        document.addEventListener('mouseup', () => {
-          const selection = window.getSelection().toString().trim();
-          console.log('Selection:', selection);
-          if (selection) {
-            chrome.runtime.sendMessage({ selection });
-            console.log('Message sent:', selection);
-          }
-        });
-      }
-    });
+chrome.action.onClicked.addListener(async (tab) => {
+  const [tabId] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  await chrome.scripting.executeScript({
+    target: { tabId: tabId },
+    function: () => {
+      const selectedText = window.getSelection().toString();
+      chrome.action.setBadgeText({ text: selected-text });
+    }
   });
-  
+});
