@@ -1,12 +1,10 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Popup on Text Selection",
   "version": "1.3",
   "description": "A simple extension that pops up a tab with selected text.",
-  "permissions": ["activeTab", "clipboardWrite"],
-  "browser_action": {
-    "default_title": "Popup on Text Selection",
-    "default_popup": "popup.html"
+  "background": {
+    "service_worker": "background.js"
   },
   "icons": {
     "16": "images/icon-16.png",
@@ -14,10 +12,9 @@
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["scripts/content.js"]
-    }
-  ]
+  "permissions": ["scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Popup on Text Selection"
+  }
 }
